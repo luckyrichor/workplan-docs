@@ -54,8 +54,9 @@ cat > CLAUDE.md <<'INNER'
 
 这是工作区容器目录，**本身不是 git 仓库**。七个子目录各自是独立仓库。
 
-计划层、岗位依据、总节奏和多机协作规则在 **`workplan-docs/CLAUDE.md`**，
-动任何项目之前先读那一份。各项目另有自己的 `CLAUDE.md`。
+先读 **`workplan-docs/CLAUDE.md`**（计划层、六项目分工、多机协作规则），
+动环境之前再读 **`workplan-docs/环境与踩坑记录.md`**（三台机器的实际状态与已踩过的坑）。
+各项目另有自己的 `CLAUDE.md`。
 INNER
 
 echo
