@@ -48,15 +48,30 @@ for r in "${REPOS[@]}"; do
   fi
 done
 
-# 容器目录本身不是 git 仓库，放一个指路文件方便 Claude Code 定位计划层
+# 容器目录本身不是 git 仓库，放指路文件方便各类编码 agent 定位计划层。
+# 两份内容相同：Claude Code 读 CLAUDE.md，Codex 读 AGENTS.md。
+cat > AGENTS.md <<'INNER'
+# AGENTS.md
+
+这是工作区容器目录，**本身不是 git 仓库**。七个子目录各自是独立仓库。
+
+先读 `workplan-docs/AGENTS.md`（计划层、六项目分工、多机协作规则），
+动环境之前再读 `workplan-docs/环境与踩坑记录.md`（三台机器的实际状态与已踩过的坑）。
+各项目仓库内另有自己的 `AGENTS.md`。
+
+（`CLAUDE.md` 与本文件内容相同，是给 Claude Code 的同名副本；改动请两份一起改。）
+INNER
+
 cat > CLAUDE.md <<'INNER'
 # CLAUDE.md
 
 这是工作区容器目录，**本身不是 git 仓库**。七个子目录各自是独立仓库。
 
-先读 **`workplan-docs/CLAUDE.md`**（计划层、六项目分工、多机协作规则），
-动环境之前再读 **`workplan-docs/环境与踩坑记录.md`**（三台机器的实际状态与已踩过的坑）。
-各项目另有自己的 `CLAUDE.md`。
+先读 `workplan-docs/AGENTS.md`（计划层、六项目分工、多机协作规则），
+动环境之前再读 `workplan-docs/环境与踩坑记录.md`（三台机器的实际状态与已踩过的坑）。
+各项目仓库内另有自己的 `AGENTS.md`。
+
+（`AGENTS.md` 与本文件内容相同，是给 Codex 等工具的同名副本；改动请两份一起改。）
 INNER
 
 echo

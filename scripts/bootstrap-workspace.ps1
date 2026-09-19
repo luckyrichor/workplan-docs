@@ -35,14 +35,28 @@ foreach ($r in $Repos) {
 }
 
 @"
+# AGENTS.md
+
+这是工作区容器目录，**本身不是 git 仓库**。七个子目录各自是独立仓库。
+
+先读 ``workplan-docs/AGENTS.md``（计划层、六项目分工、多机协作规则），
+动环境之前再读 ``workplan-docs/环境与踩坑记录.md``（三台机器的实际状态与已踩过的坑）。
+各项目仓库内另有自己的 ``AGENTS.md``。
+
+（``CLAUDE.md`` 与本文件内容相同，是给 Claude Code 的同名副本；改动请两份一起改。）
+"@ | ForEach-Object { [System.IO.File]::WriteAllText("$Root\AGENTS.md", $_, (New-Object System.Text.UTF8Encoding($false))) }
+
+@"
 # CLAUDE.md
 
 这是工作区容器目录，**本身不是 git 仓库**。七个子目录各自是独立仓库。
 
-先读 **``workplan-docs/CLAUDE.md``**（计划层、六项目分工、多机协作规则），
-动环境之前再读 **``workplan-docs/环境与踩坑记录.md``**（三台机器的实际状态与已踩过的坑）。
-各项目另有自己的 ``CLAUDE.md``。
-"@ | ForEach-Object { [System.IO.File]::WriteAllText("$Root\CLAUDE.md", $_, (New-Object System.Text.UTF8Encoding($false))) }  # 不能用 Set-Content -Encoding UTF8：PS 5.1 会写 BOM
+先读 ``workplan-docs/AGENTS.md``（计划层、六项目分工、多机协作规则），
+动环境之前再读 ``workplan-docs/环境与踩坑记录.md``（三台机器的实际状态与已踩过的坑）。
+各项目仓库内另有自己的 ``AGENTS.md``。
+
+（``AGENTS.md`` 与本文件内容相同，是给 Codex 等工具的同名副本；改动请两份一起改。）
+"@ | ForEach-Object { [System.IO.File]::WriteAllText("$Root\CLAUDE.md", $_, (New-Object System.Text.UTF8Encoding($false))) }
 
 Write-Host "`n完成。引擎项目还需要："
 Write-Host "  git lfs install        # tactical-shooter-ue / coop-combat-unity 用 LFS 管理二进制资产"
