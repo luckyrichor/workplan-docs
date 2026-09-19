@@ -43,6 +43,12 @@ foreach ($r in $Repos) {
 动环境之前再读 ``workplan-docs/环境与踩坑记录.md``（三台机器的实际状态与已踩过的坑）。
 各项目仓库内另有自己的 ``AGENTS.md``。
 
+## 记录规范
+
+各仓库的正文**只维护 ``AGENTS.md``**，``CLAUDE.md`` 永远只是指路，**不要往 CLAUDE.md 里加内容**。
+新内容按类型分流：仓库指引进该仓库 ``AGENTS.md``；环境与工具链的坑进 ``workplan-docs/环境与踩坑记录.md``；
+已发生的进展进各仓库 ``docs/progress.md``；设计取舍进 ``docs/design-decisions.md``；排期进 ``workplan-docs/总节奏表.md``。
+
 （``CLAUDE.md`` 与本文件内容相同，是给 Claude Code 的同名副本；改动请两份一起改。）
 "@ | ForEach-Object { [System.IO.File]::WriteAllText("$Root\AGENTS.md", $_, (New-Object System.Text.UTF8Encoding($false))) }
 
@@ -54,6 +60,12 @@ foreach ($r in $Repos) {
 先读 ``workplan-docs/AGENTS.md``（计划层、六项目分工、多机协作规则），
 动环境之前再读 ``workplan-docs/环境与踩坑记录.md``（三台机器的实际状态与已踩过的坑）。
 各项目仓库内另有自己的 ``AGENTS.md``。
+
+## 记录规范
+
+各仓库的正文**只维护 ``AGENTS.md``**，``CLAUDE.md`` 永远只是指路，**不要往 CLAUDE.md 里加内容**。
+新内容按类型分流：仓库指引进该仓库 ``AGENTS.md``；环境与工具链的坑进 ``workplan-docs/环境与踩坑记录.md``；
+已发生的进展进各仓库 ``docs/progress.md``；设计取舍进 ``docs/design-decisions.md``；排期进 ``workplan-docs/总节奏表.md``。
 
 （``AGENTS.md`` 与本文件内容相同，是给 Codex 等工具的同名副本；改动请两份一起改。）
 "@ | ForEach-Object { [System.IO.File]::WriteAllText("$Root\CLAUDE.md", $_, (New-Object System.Text.UTF8Encoding($false))) }
