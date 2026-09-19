@@ -1,3 +1,7 @@
+﻿# 注意：本文件必须保存为「带 BOM 的 UTF-8」。
+# PowerShell 5.1 会把无 BOM 的 .ps1 当 ANSI/GBK 读，里面的中文会乱码并导致解析失败。
+# 详见 workplan-docs/环境与踩坑记录.md 第 2 条。
+#
 # 在 Windows 上拉齐整个工作区（七个仓库）。
 #
 #   powershell -ExecutionPolicy Bypass -File bootstrap-workspace.ps1
