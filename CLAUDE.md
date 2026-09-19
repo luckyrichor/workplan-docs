@@ -42,6 +42,8 @@ WorkPlan/                    ← 容器，不是仓库
 3. `岗位分析.md` — 分类、逐岗位解读、共性对比、公司特点、六项目映射。**所有决策的分析基础。**
 4. `README-项目说明与当前方案.md` — 总入口，记录已确定的方案。
 
+另有 `环境与踩坑记录.md`：三台机器的实际环境、代理机制差异、以及已经踩过的坑。**它不属于上面那条依据链**，是操作层的记录，动环境前必读。
+
 岗位编号 01–18 在三份文件中严格对应，是跨文件引用的主键；调整时三份都要同步。
 
 `岗位分析.md` 第五节与 README 第三节的六项目表格是重复表述，**改一处必须同步另一处**。
@@ -65,7 +67,9 @@ WorkPlan/                    ← 容器，不是仓库
 
 ## 多机协作
 
-三台机器：Mac（本地）、`tx`（Ubuntu 24.04，4 核 7.5G，已装 git/docker/python3.12/gcc/cmake/go1.27/node22/uv）、`luowindows`（Windows，Unity 已装、UE 待装）。
+**动环境之前先读 `环境与踩坑记录.md`** —— 三台机器的规格、已装工具、代理机制和已经踩过的坑都在那里，不要凭印象操作。
+
+三台机器：Mac（本地）、`tx`（Ubuntu 24.04，常开，适合跑常驻服务）、`luowindows`（Windows 11，引擎唯一机器）。
 
 ### 五条硬规矩
 
@@ -85,11 +89,22 @@ WorkPlan/                    ← 容器，不是仓库
 
 tx 常开，适合让 ④ 的记忆 API 常驻，供 ③ 连接。引擎项目锁死 Windows。
 
+### 三台机器的代理机制不一样
+
+**不要拿一台的经验套另一台**（细节见 `环境与踩坑记录.md`）：
+
+- **Mac**：Mihomo TUN，全局接管，ssh 也透明走代理
+- **tx**：纯端口模式 + `.bashrc` 的环境变量，**只在交互式 shell 生效**；ssh 不读这些变量，是真直连
+- **Windows**：Clash Verge TUN，依赖「服务模式」，服务没启用时整机域名访问全断
+
+由此产生的一条操作要点：**远程非交互执行命令时默认没有代理**（`.bashrc` 早返回），需要代理的命令要显式 `export`。
+
 ### 跨平台细节
 
 - 每个仓库都有 `.gitattributes` 强制 `eol=lf`，否则 Windows 与 Linux 来回切会产生满屏假 diff。
 - ①② 必须开 **Git LFS**（Unity `.asset`/`.prefab`、UE `.uasset`/`.umap` 是二进制大文件）。建仓库时就配，事后补很麻烦。
-- GitHub 账号统一 **luckyrichor**（`luckyrichor@gmail.com`），六个仓库全部 public。
+- **在 Windows 上写文件绝不能带 BOM**，读 `.ps1` 则必须带 BOM —— 这条坑过两次，详见踩坑记录第 2 条。
+- GitHub 账号统一 **luckyrichor**（`luckyrichor@gmail.com`），七个仓库全部 public，remote 全用 ssh。
 
 ## 节奏安排
 
