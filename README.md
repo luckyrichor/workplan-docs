@@ -36,12 +36,50 @@
 
 ## 在新机器上开工
 
+### 约定路径
+
+七个仓库永远并列放在同一个容器目录下。各平台的约定根目录：
+
+| 平台 | 路径 | 说明 |
+|---|---|---|
+| macOS | `~/Project/WorkPlan` | |
+| Linux（tx 服务器） | `~/WorkPlan` | |
+| Windows | `C:\WorkPlan` | 刻意用短路径 —— UE 对路径长度敏感，放在 `Documents` 等深层目录容易触发 MAX_PATH 限制 |
+
+容器目录本身**不是** git 仓库。
+
+### 一条命令拉齐
+
 ```bash
-git clone https://github.com/luckyrichor/workplan-docs.git
+git clone git@github.com:luckyrichor/workplan-docs.git
 bash workplan-docs/scripts/bootstrap-workspace.sh
 ```
 
-会把七个仓库克隆到同一个容器目录下。各项目的环境依赖见各自仓库的 README。
+Windows 用 PowerShell：
+
+```powershell
+git clone git@github.com:luckyrichor/workplan-docs.git
+powershell -ExecutionPolicy Bypass -File workplan-docs\scripts\bootstrap-workspace.ps1
+```
+
+脚本幂等：已存在的仓库执行 `pull`，不存在的才 `clone`，并自动在容器目录生成指路用的 `CLAUDE.md`。传参数可覆盖默认路径。
+
+### 首次还需要
+
+```bash
+git config --global user.name  "luckyrichor"
+git config --global user.email "luckyrichor@gmail.com"
+```
+
+推送凭据用 ssh（仓库 remote 已是 `git@github.com:`），需要该机器的 ssh 公钥已加到 GitHub 账号。验证：
+
+```bash
+ssh -T git@github.com    # 应回 "Hi luckyrichor!"
+```
+
+引擎项目（`tactical-shooter-ue` / `coop-combat-unity`）额外需要 `git lfs install`。
+
+各项目自身的环境依赖见各仓库的 README。
 
 ## 范围说明
 

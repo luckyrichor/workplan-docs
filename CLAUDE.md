@@ -10,7 +10,15 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## 工作区布局
 
-这七个仓库并列放在同一个容器目录下（Mac 上是 `/Users/lc/Project/WorkPlan/`）。**容器目录本身不是 git 仓库**，每个子目录各自独立。
+这七个仓库并列放在同一个容器目录下。**容器目录本身不是 git 仓库**，每个子目录各自独立。
+
+各机器的约定根目录（写死在 `scripts/bootstrap-workspace.sh` 里，不要随意换）：
+
+| 机器 | 路径 |
+|---|---|
+| Mac | `/Users/lc/Project/WorkPlan` |
+| `tx`（Ubuntu） | `/home/ubuntu/WorkPlan` |
+| `luowindows` | `C:\WorkPlan`（短路径，避开 UE 的 MAX_PATH 限制） |
 
 ```
 WorkPlan/                    ← 容器，不是仓库

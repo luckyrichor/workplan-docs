@@ -1,7 +1,15 @@
 #!/usr/bin/env bash
-# 在一台新机器上拉齐整个工作区。
-# 用法: bash workplan-docs/scripts/bootstrap-workspace.sh [容器目录]
-# 默认容器目录 = 本脚本所在仓库的父目录。
+# 在任意一台机器上拉齐整个工作区（七个仓库）。
+#
+#   bash bootstrap-workspace.sh            # 用该平台的约定路径
+#   bash bootstrap-workspace.sh /自定义/路径
+#
+# 约定路径（不传参数时）：
+#   macOS    /Users/<你>/Project/WorkPlan
+#   Linux    ~/WorkPlan
+#   Windows  C:\WorkPlan   （Git Bash 下写作 /c/WorkPlan）
+#
+# 幂等：已存在的仓库执行 pull，不存在的才 clone。
 set -euo pipefail
 
 GH_USER="luckyrichor"
@@ -15,19 +23,28 @@ REPOS=(
   backend-cloud-labs
 )
 
-here="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-root="${1:-$(dirname "$here")}"
+default_root() {
+  case "$(uname -s)" in
+    Darwin)            echo "$HOME/Project/WorkPlan" ;;
+    Linux)             echo "$HOME/WorkPlan" ;;
+    MINGW*|MSYS*|CYGWIN*) echo "/c/WorkPlan" ;;   # UE 对路径长度敏感，根目录要短
+    *)                 echo "$HOME/WorkPlan" ;;
+  esac
+}
+
+root="${1:-$(default_root)}"
 mkdir -p "$root"
 cd "$root"
+echo "工作区: $root"
+echo
 
-echo "容器目录: $root"
 for r in "${REPOS[@]}"; do
   if [ -d "$r/.git" ]; then
-    printf '%-24s 已存在，pull\n' "$r"
-    git -C "$r" pull --ff-only --quiet || echo "  (pull 失败，可能有本地改动，跳过)"
+    printf '%-22s ' "$r"
+    if git -C "$r" pull --ff-only --quiet 2>/dev/null; then echo "已更新"; else echo "跳过（有本地改动或分叉）"; fi
   else
-    printf '%-24s clone\n' "$r"
-    git clone --quiet "https://github.com/${GH_USER}/${r}.git" "$r" || echo "  (clone 失败，仓库可能尚未创建)"
+    printf '%-22s ' "$r"
+    git clone --quiet "git@github.com:${GH_USER}/${r}.git" "$r" && echo "已克隆" || echo "克隆失败"
   fi
 done
 
@@ -42,4 +59,6 @@ cat > CLAUDE.md <<'INNER'
 INNER
 
 echo
-echo "完成。计划层见 workplan-docs/CLAUDE.md"
+echo "完成。下一步："
+echo "  1. 计划层见 $root/workplan-docs/CLAUDE.md"
+echo "  2. 首次使用需配 git 身份与推送凭据，见 workplan-docs/README.md「在新机器上开工」"
