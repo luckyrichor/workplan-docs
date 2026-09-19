@@ -43,8 +43,8 @@
 | 平台 | 路径 | 说明 |
 |---|---|---|
 | macOS | `~/Project/WorkPlan` | |
-| Linux（tx 服务器） | `~/WorkPlan` | |
-| Windows | `C:\WorkPlan` | 刻意用短路径 —— UE 对路径长度敏感，放在 `Documents` 等深层目录容易触发 MAX_PATH 限制 |
+| Linux（tx 服务器） | `~/project/WorkPlan` | |
+| Windows | `E:\WorkPlan` | 刻意用短路径 —— UE 对路径长度敏感，放在 `Documents` 等深层目录容易触发 MAX_PATH 限制 |
 
 容器目录本身**不是** git 仓库。
 

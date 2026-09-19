@@ -17,8 +17,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 | 机器 | 路径 |
 |---|---|
 | Mac | `/Users/lc/Project/WorkPlan` |
-| `tx`（Ubuntu） | `/home/ubuntu/WorkPlan` |
-| `luowindows` | `C:\WorkPlan`（短路径，避开 UE 的 MAX_PATH 限制） |
+| `tx`（Ubuntu） | `/home/ubuntu/project/WorkPlan` |
+| `luowindows` | `E:\WorkPlan`（短路径，避开 UE 的 MAX_PATH 限制） |
 
 ```
 WorkPlan/                    ← 容器，不是仓库

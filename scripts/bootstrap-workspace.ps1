@@ -3,9 +3,9 @@
 #   powershell -ExecutionPolicy Bypass -File bootstrap-workspace.ps1
 #   powershell -ExecutionPolicy Bypass -File bootstrap-workspace.ps1 -Root D:\WorkPlan
 #
-# 默认根目录 C:\WorkPlan —— 刻意选短路径，UE 对路径长度敏感，
+# 默认根目录 E:\WorkPlan —— 刻意选短路径，UE 对路径长度敏感，
 # 放在 Documents 等深层目录下容易触发 Windows MAX_PATH 限制。
-param([string]$Root = "C:\WorkPlan")
+param([string]$Root = "E:\WorkPlan")
 
 $ErrorActionPreference = "Stop"
 $GhUser = "luckyrichor"

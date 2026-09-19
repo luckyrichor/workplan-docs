@@ -6,8 +6,8 @@
 #
 # 约定路径（不传参数时）：
 #   macOS    /Users/<你>/Project/WorkPlan
-#   Linux    ~/WorkPlan
-#   Windows  C:\WorkPlan   （Git Bash 下写作 /c/WorkPlan）
+#   Linux    ~/project/WorkPlan
+#   Windows  E:\WorkPlan   （Git Bash 下写作 /e/WorkPlan）
 #
 # 幂等：已存在的仓库执行 pull，不存在的才 clone。
 set -euo pipefail
@@ -26,9 +26,9 @@ REPOS=(
 default_root() {
   case "$(uname -s)" in
     Darwin)            echo "$HOME/Project/WorkPlan" ;;
-    Linux)             echo "$HOME/WorkPlan" ;;
-    MINGW*|MSYS*|CYGWIN*) echo "/c/WorkPlan" ;;   # UE 对路径长度敏感，根目录要短
-    *)                 echo "$HOME/WorkPlan" ;;
+    Linux)             echo "$HOME/project/WorkPlan" ;;
+    MINGW*|MSYS*|CYGWIN*) echo "/e/WorkPlan" ;;   # UE 对路径长度敏感，根目录要短
+    *)                 echo "$HOME/project/WorkPlan" ;;
   esac
 }
 
