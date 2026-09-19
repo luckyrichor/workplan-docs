@@ -76,5 +76,5 @@ INNER
 
 echo
 echo "完成。下一步："
-echo "  1. 计划层见 $root/workplan-docs/CLAUDE.md"
+echo "  1. 计划层见 $root/workplan-docs/AGENTS.md"
 echo "  2. 首次使用需配 git 身份与推送凭据，见 workplan-docs/README.md「在新机器上开工」"

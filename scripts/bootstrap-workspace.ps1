@@ -60,4 +60,4 @@ foreach ($r in $Repos) {
 
 Write-Host "`n完成。引擎项目还需要："
 Write-Host "  git lfs install        # tactical-shooter-ue / coop-combat-unity 用 LFS 管理二进制资产"
-Write-Host "  计划层见 $Root\workplan-docs\CLAUDE.md"
+Write-Host "  计划层见 $Root\workplan-docs\AGENTS.md"
