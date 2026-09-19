@@ -27,7 +27,7 @@
 |---|---|---|
 | [`tactical-shooter-ue`](https://github.com/luckyrichor/tactical-shooter-ue) | UE C++ 战术射击原型 | 03、04，兼顾 12 |
 | [`coop-combat-unity`](https://github.com/luckyrichor/coop-combat-unity) | Unity C# 联机战斗原型 | 09 |
-| [`agent-ops-platform`](https://github.com/luckyrichor/agent-ops-platform) | Agent 应用与可观测评测平台 | 05、07、10、11、14 |
+| [`agent-ops-platform`](https://github.com/luckyrichor/agent-ops-platform) | Agent 应用与可观测评测平台 | 05、07、10、11、14，外加 08 作为子方向 |
 | [`agent-memory`](https://github.com/luckyrichor/agent-memory) | 跨会话记忆系统 | 01 |
 | [`engine-core-labs`](https://github.com/luckyrichor/engine-core-labs) | 游戏引擎通用模块实验 | 02 |
 | [`backend-cloud-labs`](https://github.com/luckyrichor/backend-cloud-labs) | 后端服务与云原生实验 | 06、13、15、16、17 |
@@ -83,4 +83,6 @@ ssh -T git@github.com    # 应回 "Hi luckyrichor!"
 
 ## 范围说明
 
-岗位 18（前端）不纳入实践。岗位 08 保留分析但尚未分配到项目。本计划中的项目对应关系代表**目标关联**，不意味着单个项目自动完整覆盖对应岗位的全部要求。
+岗位 18（前端）不纳入实践。**岗位 08（字节 AI 全栈-客服平台）已于 2026-09-19 确定挂到 `agent-ops-platform` 下作为子方向**，不新增独立项目；但 08 的 JD 含全栈/前端要求而该项目不做前端，这部分不声称覆盖。
+
+本计划中的项目对应关系代表**目标关联**，不意味着单个项目自动完整覆盖对应岗位的全部要求。
