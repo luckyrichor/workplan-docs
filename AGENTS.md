@@ -52,7 +52,7 @@ WorkPlan/                    ← 容器，不是仓库
 
 | 原编号 | 仓库 | 对应岗位 | 分工模式 |
 |---|---|---|---|
-| ① | `tactical-shooter-ue` | 03、04，兼顾 12 | 混合：Claude 写 C++ / 用户在编辑器操作。**UE 5.6**，未安装 |
+| ① | `tactical-shooter-ue` | 03、04，兼顾 12 | 混合：Claude 写 C++ / 用户在编辑器操作。**UE 5.6.1**，已安装 |
 | ② | `coop-combat-unity` | 09 | 混合：同上。**Unity 2022.3.38f1c1**，已就绪 |
 | ③ | `agent-ops-platform` | 05、07、10、11、14，**外加 08 作为子方向** | 偏产出：Claude 主写，用户做设计决策 |
 | ④ | `agent-memory` | 01 | 偏产出：Claude 主写 + 设计问答文档 |
