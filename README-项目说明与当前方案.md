@@ -18,7 +18,7 @@
 - `AGENTS.md`：给编码 agent 的指引（Claude Code 读同目录的 `CLAUDE.md`，两者都指向 `AGENTS.md`，正文只维护一份）。
 - `scripts/bootstrap-workspace.sh` / `.ps1`：在新机器上一条命令拉齐七个仓库。
 - `scripts/run-on-tx.sh`：在 tx 上跑命令前强制同步代码并校验哈希，避免"测试通过但测的是旧代码"。
-- 各项目的技术方案、进度记录写在**各自的仓库**里（`docs/progress.md`、`docs/design-decisions.md`），不集中到这里；排期写在 `总节奏表.md`，汇总看板写在 `进度总览.md`（尚未创建）。
+- 各项目的技术方案、进度记录写在**各自的仓库**里（`docs/progress.md`、`docs/design-decisions.md`），不集中到这里；排期写在 `总节奏表.md`，汇总看板写在 `进度总览.md`。
 
 ## 三、确定方案：6个并行项目
 
