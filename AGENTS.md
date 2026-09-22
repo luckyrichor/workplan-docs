@@ -171,6 +171,31 @@ Codex 写的则是 `由 Codex 生成` 与 profile `codex`，其余格式一致�
 - **日期** —— 飞书的修改时间会被后续编辑覆盖，正文里这个是生成时点
 - **来源仓库与提交哈希** —— 文档内容对应的是哪一版代码。**没有这个，文档过两周就无法判断是否已经过期**
 
+### 目录结构：不要把文档丢在云空间根目录
+
+建文档**前**先确定它落在哪个文件夹，**同类文档归到同一个文件夹下**；根目录只放文件夹，不散落单个文档。约定层级：
+
+```
+WorkPlan/                 ← 求职计划总目录
+├── agent-memory/         ← 按项目分，六个项目各一个
+├── agent-ops-platform/
+├── backend-cloud-labs/
+├── tactical-shooter-ue/
+├── coop-combat-unity/
+├── engine-core-labs/
+└── 计划层/               ← 跨项目的：排期、进度汇总、评审
+```
+
+**每次先查再建**，目标文件夹已存在就复用，不要造出两个同名文件夹：
+
+```bash
+lark-cli drive +search --query "<文件夹名>" --as user
+lark-cli drive +create-folder --name "<名字>" --folder-token <父token> --as user
+lark-cli docs +create --as user --parent-token <文件夹token> --title "<标题>" --content @./f.md --doc-format markdown
+```
+
+**用 `--parent-token` 一次建到位**，不要先建在根目录再 `drive +move` 搬 —— 搬运是异步任务，还要轮询结果，平白多一步可能失败的环节。
+
 ### 写入前必须先问
 
 **以用户名义创建飞书文档前，先在对话里说明标题与大纲，得到确认再写。** 仓库内的日常记录（`docs/progress.md`、`AGENTS.md` 等）不在此列，照常直接写。
