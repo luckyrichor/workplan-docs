@@ -153,6 +153,43 @@ bash workplan-docs/scripts/run-on-tx.sh agent-memory 'docker compose up -d postg
 
 它会：本地有未提交改动就拒绝 → push → tx pull → **校验两边哈希一致** → 才执行。哈希比对是最终判据，不是「命令有没有报错」。脚本还顺带剥掉了腾讯云登录横幅。
 
+## 飞书文档：署名规范（Claude 与 Codex 都要遵守）
+
+这台机器上 **Claude 和 Codex 都能以用户本人的身份**写飞书文档（走 `lark-channel` bridge 各自的 profile，`lark-cli docs +create --as user`）。文档作者都是 luochen，**光看作者分不出是谁写的**，所以靠正文首行的署名区分。
+
+**每份文档的第一行必须是这样一行引用块**：
+
+```markdown
+> 🤖 **由 Claude Code 生成** · YYYY-MM-DD · 来源 `<仓库>@<短哈希>` · 工具 `lark-cli` profile `claude`
+```
+
+Codex 写的则是 `由 Codex 生成` 与 profile `codex`，其余格式一致。
+
+三个字段都不是装饰：
+
+- **谁写的** —— 出了问题知道找哪一边复盘
+- **日期** —— 飞书的修改时间会被后续编辑覆盖，正文里这个是生成时点
+- **来源仓库与提交哈希** —— 文档内容对应的是哪一版代码。**没有这个，文档过两周就无法判断是否已经过期**
+
+### 写入前必须先问
+
+**以用户名义创建飞书文档前，先在对话里说明标题与大纲，得到确认再写。** 仓库内的日常记录（`docs/progress.md`、`AGENTS.md` 等）不在此列，照常直接写。
+
+理由：飞书文档是以用户本人身份创建的对外产物，未经确认就发出去，等于替他做了外发决定。
+
+### 操作要点
+
+```bash
+export PATH="/home/ubuntu/.nvm/versions/node/v24.21.0/bin:$PATH"
+export LARKSUITE_CLI_CONFIG_DIR=/home/ubuntu/.lark-channel/profiles/<profile>/lark-cli/lark-channel
+lark-cli docs +create --as user --title "<标题>" --content @./file.md --doc-format markdown
+```
+
+- `LARKSUITE_CLI_CONFIG_DIR` 不指到 profile 目录就会报 `not configured`
+- `--as user` 作者才是用户本人，`--as bot` 作者是机器人
+- `--content @file` **只接受 cwd 下的相对路径**，绝对路径报 `unsafe file path`；用完清理
+- 用户授权（`auth login`）与策略开关（`config strict-mode`）**属于用户自己的操作**，agent 不得代劳。［实测 2026-09-22］这类命令会被 Claude 的权限层直接拦下，拦得对。
+
 ## 记录规范：新内容写到哪儿
 
 **本仓库的正文只维护 `AGENTS.md` 一份**，`CLAUDE.md` 永远只是几行指路。两份都写正文必然漂移，**不要往 `CLAUDE.md` 里加任何内容**。
