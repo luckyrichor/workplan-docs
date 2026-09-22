@@ -171,34 +171,28 @@ Codex 写的则是 `由 Codex 生成` 与 profile `codex`，其余格式一致�
 - **日期** —— 飞书的修改时间会被后续编辑覆盖，正文里这个是生成时点
 - **来源仓库与提交哈希** —— 文档内容对应的是哪一版代码。**没有这个，文档过两周就无法判断是否已经过期**
 
-### 目录结构：不要把文档丢在云空间根目录
+### 位置：统一放「我的文档库」，不是云盘
 
-建文档**前**先确定它落在哪个文件夹，**同类文档归到同一个文件夹下**；根目录只放文件夹，不散落单个文档。
+飞书有两套系统，**别混**：**我的空间**（云盘 / Drive，文件夹树，链接 `/docx/…`）和**我的文档库**（个人知识库 / Wiki，节点树，链接 `/wiki/…`，有 `node_token` 与 `obj_token` 两个 token）。
 
-**层级按实际内容设计，不要套用固定模板。** 以后会有别的项目、别的类型的文档（学习笔记、调研、会议记录……），该怎么分就怎么分；**拿不准就在创建前的确认环节一起问用户**——要新建哪几层文件夹，也是要确认的内容之一。
+**文档统一建在「我的文档库」**（`--space-id my_library`，2026-09-22 用户确认）。云盘只留文件类产物：导出的 PDF、截图、附件。
 
-本仓库当前的实例：
+⚠️ 知识库里**没有纯文件夹** —— 当目录用的节点本身也是一篇（空）docx，靠嵌套形成层级。
+⚠️ 很多 `drive` 命令不认 wiki 链接，会报 `not exist`；要底层资源先 `drive +inspect` 解包。
+
+层级**按实际内容设计，不要套固定模板**。以后会有别的项目、别的类型的文档（学习笔记、调研、会议记录……），该怎么分就怎么分；**拿不准就在创建前的确认环节一起问用户**——要新建哪几层，也是要确认的内容之一。
+
+**只建当前用得上的层级**，不要预先把空节点铺开：空节点就是一篇空文档，建一堆是噪声。**先 `wiki +node-list` 看有没有，已存在就复用。**
+
+本仓库当前的实例（`my_library` 下）：
 
 ```
-WorkPlan/                 ← 求职计划总目录
-├── agent-memory/         ← 按项目分，六个项目各一个
-├── agent-ops-platform/
-├── backend-cloud-labs/
-├── tactical-shooter-ue/
-├── coop-combat-unity/
-├── engine-core-labs/
-└── 计划层/               ← 跨项目的：排期、进度汇总、评审
+WorkPlan/
+└── agent-memory/
+    └── agent-memory 评审处置表（2026-09-22）
 ```
 
-**每次先查再建**，目标文件夹已存在就复用，不要造出两个同名文件夹：
-
-```bash
-lark-cli drive +search --query "<文件夹名>" --as user
-lark-cli drive +create-folder --name "<名字>" --folder-token <父token> --as user
-lark-cli docs +create --as user --parent-token <文件夹token> --title "<标题>" --content @./f.md --doc-format markdown
-```
-
-**用 `--parent-token` 一次建到位**，不要先建在根目录再 `drive +move` 搬 —— 搬运是异步任务，还要轮询结果，平白多一步可能失败的环节。
+其余五个项目和「计划层」等用到时再建。
 
 ### 写入前必须先问
 
@@ -211,7 +205,12 @@ lark-cli docs +create --as user --parent-token <文件夹token> --title "<标题
 ```bash
 export PATH="/home/ubuntu/.nvm/versions/node/v24.21.0/bin:$PATH"
 export LARKSUITE_CLI_CONFIG_DIR=/home/ubuntu/.lark-channel/profiles/<profile>/lark-cli/lark-channel
-lark-cli docs +create --as user --title "<标题>" --content @./file.md --doc-format markdown
+
+lark-cli wiki +node-list --space-id my_library --as user                    # 先看层级
+lark-cli wiki +node-create --space-id my_library --parent-node-token <父> \
+  --title "<名字>" --obj-type docx --as user                                # 缺层级才建
+lark-cli docs +create --as user --parent-token <节点token> \
+  --title "<标题>" --content @./f.md --doc-format markdown                   # 一次建到位
 ```
 
 - `LARKSUITE_CLI_CONFIG_DIR` 不指到 profile 目录就会报 `not configured`
